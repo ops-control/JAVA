@@ -3,6 +3,8 @@
  *******************************************/
 import java.util.ArrayList;
 class OptionVoyage{
+
+
     private String nom;
     private double prix;
     public OptionVoyage(String nom,double prix){
@@ -40,6 +42,8 @@ class Sejour extends OptionVoyage{
 
 
 class Transport extends OptionVoyage{
+    static final double TARIF_LONG=1500.0;
+    static final double TARIF_BASE=200.0;
     private boolean lon;
     public Transport(String nom, double pforf){
         super(nom, pforf);
@@ -51,10 +55,10 @@ class Transport extends OptionVoyage{
     }
     public double prix(){
         if(lon){
-            return 1500.0+super.prix();
+            return TARIF_LONG+super.prix();
         }
         else{
-            return 200.0+super.prix();
+            return TARIF_BASE+super.prix();
         }
     }
     
@@ -101,6 +105,12 @@ class KitVoyage{
     }
 
     public int getNbOptions(){
+        if(options==null){
+            return 0;
+        }
+        else if (options.get(0) == null) {
+            return 0;
+        }
         return options.size();
     }
     

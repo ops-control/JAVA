@@ -26,7 +26,7 @@ class Vehicule{
         return nom+" -> vitesse max = "+vitesseMax+" km/h, poids = "+poids+" kg";
     }
 
-    public double performance(){
+    private double performance(){
         return vitesseMax/poids;
     }
 
@@ -38,7 +38,7 @@ class Vehicule{
         return nom;
     }
 
-    public double getvitesseMax(){
+    public double getVitesseMax(){
         return vitesseMax;
     }
 
@@ -51,7 +51,7 @@ class Vehicule{
     }
 
     public boolean estDeuxRoues(){
-        return true;
+        return false;
     }
     public void setCarburant(int car){
         this.niveauCarburant=car;
@@ -146,6 +146,7 @@ class GrandPrix extends Rallye{
                 System.out.println("Elimination de tous les vehicules");
             }
             else{
+                System.out.println("Le gagnant du grand prix est :");
                 System.out.println(plusPerfo().toString());
             }
         }
@@ -161,7 +162,7 @@ class GrandPrix extends Rallye{
     private Vehicule plusPerfo(){
         Vehicule best=null;
         for(Vehicule ve:collection){
-            if(best==null||best.performance()<ve.performance()){
+            if(best==null||ve.meilleur(best)&&ve.getCarburant()>0){
                 best=ve;
             }
         }
