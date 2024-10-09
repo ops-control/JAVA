@@ -1,6 +1,8 @@
 /*******************************************
  * Completez le programme a partir d'ici.
  *******************************************/
+import java.util.ArrayList;
+
 class Vehicule{
     private String nom;
     private double vitesseMax;
@@ -47,6 +49,13 @@ class Vehicule{
     public int getCarburant(){
         return niveauCarburant;
     }
+
+    public boolean estDeuxRoues(){
+        return true;
+    }
+    public void setCarburant(int car){
+        this.niveauCarburant=car;
+    }
 }
 
 class Voiture extends Vehicule{
@@ -67,6 +76,10 @@ class Voiture extends Vehicule{
     public String getCategorie(){
         return categorie;
     }
+    public  boolean estDeuxRoues(){
+        return false;
+    }
+
 }
 
 class Moto extends Vehicule{
@@ -90,9 +103,75 @@ class Moto extends Vehicule{
         }
         else{
             return super.toString()+", Moto";
-
         }
-    }    
+    } 
+    public  boolean estDeuxRoues(){
+        if(sidecar){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+   
+}
+
+class GrandPrix extends Rallye{
+    private ArrayList<Vehicule> collection;
+    public GrandPrix(){
+        collection=new ArrayList<>();
+    }
+    public boolean check(){
+        for(int i=0;i<collection.size();i++){
+            if (collection.get(0).estDeuxRoues()!=collection.get(i).estDeuxRoues())
+ {
+                return false;
+            }
+        }
+        return true;
+
+    }
+    public void ajouter(Vehicule veh){
+        collection.add(veh);
+    }
+    public void run(int tours){
+        if(!check()){
+            System.out.println("Pas de Grand Prix");
+        }
+        else{
+            for(Vehicule ve:collection){
+                ve.setCarburant(ve.getCarburant()-tours);
+            }
+            if (!finCourse()){
+                System.out.println("Elimination de tous les vehicules");
+            }
+            else{
+                System.out.println(plusPerfo().toString());
+            }
+        }
+    }
+    private boolean finCourse(){
+        for(Vehicule ve:collection){
+            if(ve.getCarburant()>0){
+                return true;
+            }
+        }
+        return false;    
+    }
+    private Vehicule plusPerfo(){
+        Vehicule best=null;
+        for(Vehicule ve:collection){
+            if(best==null||best.performance()<ve.performance()){
+                best=ve;
+            }
+        }
+        return best;
+    }
+
+
+}
+abstract class Rallye{
+    public abstract boolean check();
 }
 /*******************************************
  * Ne pas modifier apres cette ligne
@@ -153,7 +232,7 @@ public class Course {
         System.out.println();
         // FIN PARTIE 2
 
-        /*// PARTIE 3
+        // PARTIE 3
         System.out.println();
         System.out.println("Test partie 3 : ");
         System.out.println("----------------");
@@ -199,7 +278,7 @@ public class Course {
 
         System.out.println("Troisieme  course :");
         gp2.run(11);
-        // FIN PARTIE 4*/
+        // FIN PARTIE 4
     }
 }
 
