@@ -67,14 +67,10 @@ class Neurone{
     }
 
     public void recoitStimulus(double stimulus){
-        System.out.println(stimulus);
-
         this.signalInterne=stimulus*facteurAttenuation;
         for(Neurone e:connexions){
-            if(e==null){
 
-            }
-            else{e.recoitStimulus(signalInterne);}
+            e.recoitStimulus(signalInterne);
         }
 
     }
@@ -85,16 +81,17 @@ class Neurone{
 
     public String toString(){
         StringBuilder str = new StringBuilder();;
-        str.append("Le neurone en position "+position.toString()+" avec attenuation "+facteurAttenuation+" en connexion\n");
-        if(connexions.get(0)==null){
-            return " sans connexion\n";
+        if(getNnConnexions()==0){
+            str.append("Le neurone en position "+position.toString()+" avec attenuation "+facteurAttenuation+" sans connexion\n");
         }
         else{
+            str.append("Le neurone en position "+position.toString()+" avec attenuation "+facteurAttenuation+" en connexion avec\n");
             for(Neurone e: connexions){
                 str.append("  - un neurone en position "+e.gePosition()+"\n");
             }
-            return str.toString();
         }
+        return str.toString();
+
     }
 }
 
@@ -103,8 +100,6 @@ class NeuroneCumulatif extends Neurone{
         super(pos,att);
     }
     public void recoitStimulus(double stimulus){
-        System.out.println("Cumulatif "+stimulus);
-
         setSignal(getSignal()+stimulus*getAttenuation());
         for(int i=0;i<getNnConnexions();i++){
             getConnexion(i).recoitStimulus(getSignal());
@@ -142,7 +137,6 @@ class Cerveau{
     }
 
     public void creerConnexions(){
-        System.out.println("Neurones "+getNbNeurones());
         if(getNbNeurones()<3)
         {
             if (getNbNeurones()==2){
@@ -150,21 +144,27 @@ class Cerveau{
             }        
         }
         else{
+            cerveau.get(0).connexion(cerveau.get(1));
+            cerveau.get(0).connexion(cerveau.get(2));
+
             for(int i=0;i<getNbNeurones()-2;i++){
-                System.out.println("indice "+i);
-                cerveau.get(i).connexion(cerveau.get(i+1));
-                cerveau.get(i).connexion(cerveau.get(i+2));
+                if(i%2!=0){
+                    cerveau.get(i).connexion(cerveau.get(i+1));
+                    cerveau.get(i+1).connexion(cerveau.get(i+2));
+                }    
             }
-            cerveau.get(getNbNeurones()-2).connexion(cerveau.get(getNbNeurones()-1));
 
         }
     }    
     public String toString(){
         StringBuilder str = new StringBuilder();
+        str.append("\n*----------*\n\n");
         str.append("Le cerveau contient "+getNbNeurones()+" neurone(s)\n");
         for(Neurone e:cerveau){
-            //str.append(e.toString());
+            str.append(e.toString()+"\n");
         }
+        str.append("*----------*\n\n");
+
         return str.toString();
 
     }
