@@ -96,9 +96,47 @@ class NeuroneCumulatif extends Neurone{
             getConnexion(i).recoitStimulus(getSignal());
         }
     }
-
-
 }
+
+class Cerveau{
+    private ArrayList<Neurone> cerveau;
+    public Cerveau(){
+        cerveau=new ArrayList<>();
+    }
+    public int getNbNeurones(){
+        return cerveau.size();
+    }
+    public Neurone getNeurone(int index){
+        return cerveau.get(index);
+    }
+
+    public void ajouterNeurone(Position pos, double att){
+        cerveau.add(new Neurone(pos, att));
+    }
+
+    public void ajouterNeuroneCumulatif(Position pos, double att){
+        cerveau.add(new NeuroneCumulatif(pos, att));
+
+    }
+
+    public void stimuler(int index, double stimulus){
+        cerveau.get(index).recoitStimulus(stimulus);
+    }
+
+    public double sonder(int index){
+        return cerveau.get(index).getSignal();
+    }
+
+    public void creerConnexions(){
+        for(int i=0;i<getNbNeurones()-2;i++){
+            cerveau.get(i).connexion(cerveau.get(i+1));
+            cerveau.get(i).connexion(cerveau.get(i+2));
+
+        }
+    }
+}
+
+
 /*******************************************
  * Ne pas modifier apres cette ligne
  * pour pr'eserver les fonctionnalit'es et
@@ -149,7 +187,7 @@ public class SimulateurNeurone {
 
         // FIN TEST DE LA PARTIE 2
 
-        /*/ TEST DE LA PARTIE 3
+        // TEST DE LA PARTIE 3
         System.out.println();
         System.out.println("Test de la partie 3:");
         System.out.println("--------------------");
@@ -169,6 +207,6 @@ public class SimulateurNeurone {
 
         System.out.println("Signal du 3eme neurone -> " + cerveau.sonder(3));
         System.out.println(cerveau);
-        // FIN TEST DE LA PARTIE 3*/
+        // FIN TEST DE LA PARTIE 3
     }
 }
