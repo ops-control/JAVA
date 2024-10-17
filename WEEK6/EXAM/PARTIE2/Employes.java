@@ -156,35 +156,26 @@ class Employes {
         staff.add(new Programmeur("Paul Lepetit" , 6456, 3, 75 ));
         staff.add(new Testeur("Pierre Lelong", 5456, 124, 50 ));
 
-<<<<<<< HEAD
         System.out.println("Affichage des employÃ©s : ");
-=======
         System.out.println("Affichage des employés : ");
->>>>>>> refs/remotes/origin/master
         for (Employe modele : staff) {
             System.out.println(modele);
         }
         // FIN TEST PARTIE 1
-<<<<<<< HEAD
         // TEST PARTIE 2
-=======
         /*/ TEST PARTIE 2
->>>>>>> refs/remotes/origin/master
         System.out.println("Test partie 2 : ");
 
         staff.get(0).demandePrime();
 
-<<<<<<< HEAD
         System.out.println("Affichage aprÃ¨s demande de prime : ");
         System.out.println(staff.get(0));
 
         // FIN TEST PARTIE 2
-=======
         System.out.println("Affichage après demande de prime : ");
         System.out.println(staff.get(0));
 
         // FIN TEST PARTIE 2*/
->>>>>>> refs/remotes/origin/master
     }
 }
 
