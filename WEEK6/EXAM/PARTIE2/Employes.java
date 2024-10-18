@@ -13,9 +13,11 @@ abstract class Employe{
     private final String  nom;
     private double salaire;
     private int taux;
+    private double prime;
     public Employe(String nom,double salaire,int taux){
         this.nom=nom;
         this.salaire=salaire;
+        this.prime=0;
         if(taux>100){
             this.taux=100;
         }
@@ -27,6 +29,7 @@ abstract class Employe{
         }
     }
     public Employe(String nom,double salaire){
+        this.prime=0;
         this.nom=nom;
         this.salaire=salaire;
         this.taux=100;
@@ -41,6 +44,9 @@ abstract class Employe{
     public int getTaux(){
         return taux;
     }
+     public double getPrime(){
+        return prime;
+     }
     
     public abstract String toString();
     public abstract double revenuAnnuel();
@@ -69,15 +75,22 @@ class  Manager extends Employe{
 
     public  double revenuAnnuel(){
 
-        return (getSalaire()*12*(getTaux()/100.00)+(FACTEUR_GAIN_CLIENT*nbClients)+(FACTEUR_GAIN_VOYAGE*jourVoyage));
+        return (getSalaire()*12*(getTaux()/100.00)+(FACTEUR_GAIN_CLIENT*nbClients)+(FACTEUR_GAIN_VOYAGE*jourVoyage)+getPrime());
 
     }
 
 
     public String toString(){
-        return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n"
+        if (getPrime()==0){
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n"
                         +"  A voyagé "+jourVoyage+" jours et apporté "+nbClients+" nouveaux clients.\n";
+        }
+        else{
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs, Prime : "+String.format("%.2f", getPrime())+".\n"
+            +"  A voyagé "+jourVoyage+" jours et apporté "+nbClients+" nouveaux clients.\n";
+        }    
     }
+
 
 }
 
@@ -101,13 +114,20 @@ class Testeur extends Employe{
     }
     public double revenuAnnuel(){
         System.out.println("salaire : "+getSalaire());
-        return (getSalaire()*12*(getTaux()/100.00)+(nbErreur*FACTEUR_GAIN_ERREURS));
+        return (getSalaire()*12*(getTaux()/100.00)+(nbErreur*FACTEUR_GAIN_ERREURS)+getPrime());
     }
 
     public String toString(){
-        return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n"
+        if(getPrime()==0){
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n"
                         +"  A corrigé "+nbErreur+" erreurs.\n";
-    }
+        }
+        else{
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs, Prime : "+String.format("%.2f", getPrime())+".\n"
+            +"  A corrigé "+nbErreur+" erreurs.\n"; 
+        }
+    }    
+
 }
 
 
@@ -129,14 +149,21 @@ class Programmeur extends Employe{
 
     }
     public double revenuAnnuel(){
-        double salaire = (getSalaire()*12*(getTaux()/100.00)+(projetsFini*FACTEUR_GAIN_PROJETS));
+        double salaire = (getSalaire()*12*(getTaux()/100.00)+(projetsFini*FACTEUR_GAIN_PROJETS)+getPrime());
 
         return salaire;
     }
 
     public String toString(){
-        return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n"
+        if(getPrime()==0){
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n"
                         +"  A mené à bien "+projetsFini+" projets.\n";
+        }
+        else{
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs, Prime : "+String.format("%.2f", getPrime())+".\n"
+            +"  A mené à bien "+projetsFini+" projets.\n";
+        }    
+            
     }
 }
 
