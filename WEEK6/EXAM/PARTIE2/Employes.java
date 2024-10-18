@@ -46,10 +46,15 @@ abstract class Employe{
     }
      public double getPrime(){
         return prime;
-     }
+    }
     
+    public void demandePrime(){
+        
+    }
+
     public abstract String toString();
     public abstract double revenuAnnuel();
+
 }
 
 class  Manager extends Employe{
