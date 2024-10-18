@@ -9,6 +9,9 @@
 "  A mené à bien "*/
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+import java.lang.Exception;
 abstract class Employe{
     private final String  nom;
     private double salaire;
@@ -47,9 +50,34 @@ abstract class Employe{
      public double getPrime(){
         return prime;
     }
+
+
     
     public void demandePrime(){
-        
+        Scanner scanner = new Scanner(System.in);
+        boolean demandeReussie = false;
+        int count = 0;
+        double tmp=0;
+
+        while (!demandeReussie && count < 5) {
+            System.out.println("Montant de la prime souhaitée par " + nom + " ?");
+            try {
+                tmp = scanner.nextDouble();
+                if (tmp > 0.02 * revenuAnnuel()) {
+                    throw new Exception("Trop cher!");
+                }
+                prime = tmp;
+                demandeReussie = true;    
+            } catch (InputMismatchException e) {
+                System.out.println("Vous devez introduire un nombre!");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                scanner.nextLine();
+            }
+            count++;
+        }
+        scanner.close();
     }
 
     public abstract String toString();
@@ -188,26 +216,20 @@ class Employes {
         staff.add(new Programmeur("Paul Lepetit" , 6456, 3, 75 ));
         staff.add(new Testeur("Pierre Lelong", 5456, 124, 50 ));
 
-        System.out.println("Affichage des employÃ©s : ");
         System.out.println("Affichage des employés : ");
         for (Employe modele : staff) {
             System.out.println(modele);
         }
         // FIN TEST PARTIE 1
         // TEST PARTIE 2
-        /*/ TEST PARTIE 2
         System.out.println("Test partie 2 : ");
 
         staff.get(0).demandePrime();
 
-        System.out.println("Affichage aprÃ¨s demande de prime : ");
-        System.out.println(staff.get(0));
-
-        // FIN TEST PARTIE 2
         System.out.println("Affichage après demande de prime : ");
         System.out.println(staff.get(0));
 
-        // FIN TEST PARTIE 2*/
+        // FIN TEST PARTIE 2
     }
 }
 
