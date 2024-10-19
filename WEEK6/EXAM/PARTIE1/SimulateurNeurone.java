@@ -42,11 +42,11 @@ class Neurone{
         this.connexions= new ArrayList<>();
     }
 
-    public Position gePosition(){
+    public Position getPosition(){
         return position;
     }
 
-    public int getNnConnexions(){
+    public int getNbConnexions(){
         return connexions.size();
     }
 
@@ -81,13 +81,13 @@ class Neurone{
 
     public String toString(){
         StringBuilder str = new StringBuilder();;
-        if(getNnConnexions()==0){
+        if(getNbConnexions()==0){
             str.append("Le neurone en position "+position.toString()+" avec attenuation "+facteurAttenuation+" sans connexion\n");
         }
         else{
             str.append("Le neurone en position "+position.toString()+" avec attenuation "+facteurAttenuation+" en connexion avec\n");
             for(Neurone e: connexions){
-                str.append("  - un neurone en position "+e.gePosition()+"\n");
+                str.append("  - un neurone en position "+e.getPosition()+"\n");
             }
         }
         return str.toString();
@@ -101,7 +101,7 @@ class NeuroneCumulatif extends Neurone{
     }
     public void recoitStimulus(double stimulus){
         setSignal(getSignal()+stimulus*getAttenuation());
-        for(int i=0;i<getNnConnexions();i++){
+        for(int i=0;i<getNbConnexions();i++){
             getConnexion(i).recoitStimulus(getSignal());
         }
     }

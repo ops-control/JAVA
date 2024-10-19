@@ -107,7 +107,7 @@ class Scrutin{
         for (Vote e:votes){
             if(!e.estInvalide()){
                 for(Postulant el:postulants){
-                    if(e.getNom().equals(el.getNom())){
+                    if(e.getPostulant().equals(el.getNom())){
                         el.elect(); 
                     }
                 }
@@ -121,7 +121,7 @@ class Scrutin{
         for (int i =0;i<nbVotant;i++){
             cadNum=Utils.randomInt(postulants.size()-1);
             if(i%3==0){
-                votes.add(new BultinElectronique(postulants.get(cadNum).getNom(), date,dateScrutin));
+                votes.add(new BulletinElectronique(postulants.get(cadNum).getNom(), date,dateScrutin));
             }
             else if(i%3==1){
                 if (i%2==0){
@@ -163,22 +163,20 @@ abstract class Vote{
         return date;
     }
 
-    public String getNom(){
+    
+    public String getPostulant(){
         return nom;
-    }    
+    }
 
     public int getDateLimite(){
         return dateLimite;
     }
     public String toString(){
-        if (date<=dateLimite){
-            return " pour "+nom+" -> valide\n";
-        }
-        else{
-            return " pour "+nom+" -> invalide\n";
+        if(date<dateLimite){
+            
         }
     }
-    abstract public boolean estInvalide();
+    public abstract boolean estInvalide();
 }
 
 
@@ -196,20 +194,20 @@ class BulletinPapier extends Vote{
     }
     public String toString(){
         if (estInvalide()){
-            return " vote par bulletin papier pour "+getNom()+" -> invalide";
+            return " vote par bulletin papier pour "+getPostulant()+" -> invalide";
         }
         else{
-            return " vote par bulletin papier pour "+getNom()+" -> valide";
+            return " vote par bulletin papier pour "+getPostulant()+" -> valide";
         }
     }
 
 }
 
-interface CheckBulltin{
+interface CheckBulletin{
     boolean checkDate();
 }
 
-class BulletinCourrier  extends BulletinPapier implements CheckBulltin{
+class BulletinCourrier  extends BulletinPapier implements CheckBulletin{
     
     public BulletinCourrier(String nom, int date, int datelim, boolean signe){
         super(nom,date,datelim,signe);
@@ -225,18 +223,18 @@ class BulletinCourrier  extends BulletinPapier implements CheckBulltin{
     
     public String toString(){
         if (estInvalide()){
-            return " envoi par courrier d’un vote par bulletin papier pour "+getNom()+" -> invalide";
+            return " envoi par courrier d’un vote par bulletin papier pour "+getPostulant()+" -> invalide";
         }
         else{
-            return " envoi par courrier d’un vote par bulletin papier pour "+getNom()+" -> valide";
+            return " envoi par courrier d’un vote par bulletin papier pour "+getPostulant()+" -> valide";
         }
     }   
 
 }
 
-class BultinElectronique extends Vote{
+class BulletinElectronique extends Vote implements CheckBulletin{
 
-    public BultinElectronique(String nom, int date, int datelim){
+    public BulletinElectronique(String nom, int date, int datelim){
         super(nom, date, datelim);
     }
     public boolean checkDate(){
@@ -248,10 +246,10 @@ class BultinElectronique extends Vote{
 
     public String toString(){
         if (estInvalide()){
-            return " vote electronique pour "+getNom()+" -> invalide";
+            return " vote electronique pour "+getPostulant()+" -> invalide";
         }
         else{
-            return " vote electronique pour "+getNom()+" -> valide";
+            return " vote electronique pour "+getPostulant()+" -> valide";
         }
     }   
 

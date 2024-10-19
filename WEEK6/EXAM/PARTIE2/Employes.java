@@ -7,12 +7,13 @@
 " jours et apporté "
 "  A corrigé "
 "  A mené à bien "*/
+import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.lang.Exception;
-abstract class Employe{
+class Employe{
     private final String  nom;
     private double salaire;
     private int taux;
@@ -55,6 +56,7 @@ abstract class Employe{
     
     public void demandePrime(){
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         boolean demandeReussie = false;
         int count = 0;
         double tmp=0;
@@ -80,8 +82,10 @@ abstract class Employe{
         scanner.close();
     }
 
-    public abstract String toString();
-    public abstract double revenuAnnuel();
+    //public abstract String toString();
+    public  double revenuAnnuel(){
+        return salaire*12;
+    };
 
 }
 
