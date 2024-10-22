@@ -109,14 +109,14 @@ class  Manager extends Employe{
         super(nom, salaire, taux);
         this.jourVoyage=jour;
         this.nbClients=client;
-        System.out.println(" c’est un manager.");
+        System.out.println(" c'est un manager.");
     }
 
     public Manager(String nom,double salaire,int jour, int client){
         super(nom, salaire);
         this.jourVoyage=jour;
         this.nbClients=client;
-        System.out.println(" c’est un manager.");
+        System.out.println(" c'est un manager.");
 
     }
 
@@ -149,14 +149,14 @@ class Testeur extends Employe{
     public Testeur(String nom,double salaire,int err,int taux){
         super(nom, salaire, taux);
         this.nbErreur=err;
-        System.out.print(" c’est un testeur.");
+        System.out.print(" c'est un testeur.");
 
     }
 
     public Testeur(String nom,double salaire,int err){
         super(nom, salaire);
         this.nbErreur=err;
-        System.out.print(" c’est un testeur.");
+        System.out.print(" c'est un testeur.");
 
     }
     public double revenuAnnuel(){
@@ -186,13 +186,13 @@ class Programmeur extends Employe{
     public Programmeur(String nom,double salaire,int pro,int taux){
         super(nom, salaire, taux);
         this.projetsFini=pro;
-        System.out.print(" c’est un programmeur.");
+        System.out.print(" c'est un programmeur.");
 
     }
     public Programmeur(String nom,double salaire,int pro){
         super(nom, salaire);
         this.projetsFini=pro;
-        System.out.print(" c’est un programmeur.");
+        System.out.print(" c'est un programmeur.");
 
     }
     public double revenuAnnuel(){
