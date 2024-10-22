@@ -31,12 +31,15 @@ class Employe{
         else{
             this.taux=taux;
         }
+        System.out.print("Nous avons un nouvel employé : "+nom+",");
+
     }
     public Employe(String nom,double salaire){
         this.prime=0;
         this.nom=nom;
         this.salaire=salaire;
         this.taux=100;
+        System.out.print("Nous avons un nouvel employé : "+nom+",");
     }
 
     public String getNom(){
@@ -52,6 +55,14 @@ class Employe{
         return prime;
     }
 
+    public String toString(){
+        if (prime==0){
+            return getNom()+" :\n"+"  Taux d'occupation : "+taux+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel())+" francs.\n";
+        }
+        else{
+            return getNom()+" :\n"+"  Taux d'occupation : "+getTaux()+"%. Salaire annuel : "+String.format("%.2f", revenuAnnuel()+prime)+" francs, Prime : "+String.format("%.2f", prime)+".\n";
+        }    
+    }
 
     
     public void demandePrime(){
@@ -82,16 +93,15 @@ class Employe{
         scanner.close();
     }
 
-    //public abstract String toString();
     public  double revenuAnnuel(){
-        return salaire*12;
-    };
+        return salaire*12*(getTaux()/100.00);
+    }
 
 }
 
 class  Manager extends Employe{
-    public static final double FACTEUR_GAIN_CLIENT=500;
-    public static final double FACTEUR_GAIN_VOYAGE=100;
+    public static final int FACTEUR_GAIN_CLIENT=500;
+    public static final int FACTEUR_GAIN_VOYAGE=100;
 
     private int jourVoyage;
     private int nbClients;
@@ -99,20 +109,20 @@ class  Manager extends Employe{
         super(nom, salaire, taux);
         this.jourVoyage=jour;
         this.nbClients=client;
-        System.out.println("Nous avons un nouvel employé : "+nom+", c’est un manager.");
+        System.out.println(" c’est un manager.");
     }
 
     public Manager(String nom,double salaire,int jour, int client){
         super(nom, salaire);
         this.jourVoyage=jour;
         this.nbClients=client;
-        System.out.println("Nous avons un nouvel employé : "+nom+", c’est un manager.");
+        System.out.println(" c’est un manager.");
 
     }
 
     public  double revenuAnnuel(){
 
-        return (getSalaire()*12*(getTaux()/100.00)+(FACTEUR_GAIN_CLIENT*nbClients)+(FACTEUR_GAIN_VOYAGE*jourVoyage)+getPrime());
+        return (getSalaire()*12*(getTaux()/100.000000)+(FACTEUR_GAIN_CLIENT*nbClients)+(FACTEUR_GAIN_VOYAGE*jourVoyage)+getPrime());
 
     }
 
@@ -134,24 +144,24 @@ class  Manager extends Employe{
 
 class Testeur extends Employe{
     private int nbErreur;
-    public static final double FACTEUR_GAIN_ERREURS=10;
+    public static final int FACTEUR_GAIN_ERREURS=10;
 
     public Testeur(String nom,double salaire,int err,int taux){
         super(nom, salaire, taux);
         this.nbErreur=err;
-        System.out.println("Nous avons un nouvel employé : "+nom+", c’est un testeur.");
+        System.out.print(" c’est un testeur.");
 
     }
 
     public Testeur(String nom,double salaire,int err){
         super(nom, salaire);
         this.nbErreur=err;
-        System.out.println("Nous avons un nouvel employé : "+nom+", c’est un testeur.");
+        System.out.print(" c’est un testeur.");
 
     }
     public double revenuAnnuel(){
         System.out.println("salaire : "+getSalaire());
-        return (getSalaire()*12*(getTaux()/100.00)+(nbErreur*FACTEUR_GAIN_ERREURS)+getPrime());
+        return (getSalaire()*12*(getTaux()/100.000000)+(nbErreur*FACTEUR_GAIN_ERREURS)+getPrime());
     }
 
     public String toString(){
@@ -171,22 +181,22 @@ class Testeur extends Employe{
 
 class Programmeur extends Employe{
     private int projetsFini;
-    public static final double FACTEUR_GAIN_PROJETS=200;
+    public static final int FACTEUR_GAIN_PROJETS=200;
 
     public Programmeur(String nom,double salaire,int pro,int taux){
         super(nom, salaire, taux);
         this.projetsFini=pro;
-        System.out.println("Nous avons un nouvel employé : "+nom+", c’est un programmeur.");
+        System.out.print(" c’est un programmeur.");
 
     }
     public Programmeur(String nom,double salaire,int pro){
         super(nom, salaire);
         this.projetsFini=pro;
-        System.out.println("Nous avons un nouvel employé : "+nom+", c’est un programmeur.");
+        System.out.print(" c’est un programmeur.");
 
     }
     public double revenuAnnuel(){
-        double salaire = (getSalaire()*12*(getTaux()/100.00)+(projetsFini*FACTEUR_GAIN_PROJETS)+getPrime());
+        double salaire = (getSalaire()*12*(getTaux()/100.000000)+(projetsFini*FACTEUR_GAIN_PROJETS)+getPrime());
 
         return salaire;
     }
